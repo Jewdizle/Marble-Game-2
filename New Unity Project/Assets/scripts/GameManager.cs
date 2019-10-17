@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject floor;
     public GameObject mainCamera;
     public GameObject level;
+    public GameObject ball;
 
     public int sizeX = 10;
     public int sizeZ = 10;
@@ -32,7 +33,7 @@ public class GameManager : MonoBehaviour
         zfloat = sizeZ;
         Boarder();
 
-        if(sizeX > sizeZ)
+        if(sizeX >= sizeZ)
         {
             mainCamera.transform.position = new Vector3(0, xfloat/2f +zfloat/10, 0);
         }
@@ -40,12 +41,13 @@ public class GameManager : MonoBehaviour
         {
             mainCamera.transform.position = new Vector3(0, zfloat/2f + zfloat/10f, 0);
         }
+        Ball();
     }
 
     public void Boarder()
     {
         floor.transform.localScale = new Vector3(xfloat / 10f, 1f, zfloat / 10f);
-        Instantiate(floor, transform.position, Quaternion.identity);
+        Instantiate(floor, transform.position, Quaternion.identity, level.transform);
 
         for (int i = 0; i < sizeX; i++)
         {
@@ -63,5 +65,11 @@ public class GameManager : MonoBehaviour
             Instantiate(one, pos, transform.rotation, level.transform);
             Instantiate(one, pos2, transform.rotation, level.transform);
         }              
+    }
+
+    public void Ball()
+    {
+        Instantiate(ball);
+        ball.transform.position = new Vector3(0, 2f, 0);
     }
 }
